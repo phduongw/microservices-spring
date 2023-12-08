@@ -8,8 +8,21 @@ spring:
       discovery:
         locator:
           enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: users-status-check
+          uri: lb://users-ws
+          #predicates like if statements, if condition match, then the req will be routed to uri
+          predicates:
+            - Path=/users-ws/users
+            - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/users-ws/(?<segment>.*), /$\{segment}
 
 eureka:
+  instance:
+    prefer-ip-address: true
   client:
     service-url:
       defaultZone: http://localhost:8010/eureka
