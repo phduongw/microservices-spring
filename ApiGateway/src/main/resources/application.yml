@@ -14,7 +14,25 @@ spring:
           uri: lb://users-ws
           #predicates like if statements, if condition match, then the req will be routed to uri
           predicates:
+            - Path=/users-ws/users/status/check
+            - Method=GET
+            - Header=Authorization, Bearer (.*)
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/users-ws/(?<segment>.*), /$\{segment}
+        - id: users-register
+          uri: lb://users-ws
+          #predicates like if statements, if condition match, then the req will be routed to uri
+          predicates:
             - Path=/users-ws/users
+            - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/users-ws/(?<segment>.*), /$\{segment}
+        - id: user-login
+          uri: lb://users-ws
+          predicates:
+            - Path=/users-ws/users/login
             - Method=POST
           filters:
             - RemoveRequestHeader=Cookie
