@@ -11,6 +11,7 @@
         <module name="ApiGateway" />
         <module name="PhotoAppDiscoveryService" />
         <module name="PhotoAppApiUsers" />
+        <module name="PhotoAppConfigServer" />
       </profile>
     </annotationProcessing>
   </component>
@@ -18,6 +19,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="ApiGateway" options="-parameters" />
       <module name="PhotoAppApiUsers" options="-parameters" />
+      <module name="PhotoAppConfigServer" options="-parameters" />
       <module name="PhotoAppDiscoveryService" options="-parameters" />
       <module name="ecommercyserver" options="-parameters" />
     </option>

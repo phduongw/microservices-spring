@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,10 +19,11 @@ import org.springframework.web.bind.annotation.*;
 public class WelcomeController {
 
     private final UserService userService;
+    private final Environment env;
 
     @GetMapping("/status/check")
     public String welcome() {
-        return "Welcome to D-corp High Tech";
+        return "Welcome to D-corp High Tech, with token = " + env.getProperty("token.secret");
     }
 
     @PostMapping
