@@ -2,10 +2,12 @@ server:
   port: 0
 
 spring:
+  config:
+    import: optional:http://localhost:8012
   application:
     name: USERS-WS
   datasource:
-    url: jdbc:mysql://localhost:3306/e-commerce
+    url: jdbc:mysql://localhost:3306/e-commercy
     username: root
     password:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -25,7 +27,8 @@ eureka:
       defaultZone: http://localhost:8010/eureka
 
 gateway:
-  ip: 192.168.1.6
+#  ip: 192.168.1.6
+  ip: 10.164.178.61
 token:
   expiration_time: 3600000
   secret: 123481203958asdfmasdfzocixubbozixusndfn399129djlkvclzvjksjajdfj

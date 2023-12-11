@@ -14,12 +14,14 @@ spring:
           uri: lb://users-ws
           #predicates like if statements, if condition match, then the req will be routed to uri
           predicates:
+#            - Header=Authorization, Bearer abc
             - Path=/users-ws/users/status/check
             - Method=GET
             - Header=Authorization, Bearer (.*)
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/users-ws/(?<segment>.*), /$\{segment}
+            - AuthorizationHeaderFilter
         - id: users-register
           uri: lb://users-ws
           #predicates like if statements, if condition match, then the req will be routed to uri
@@ -44,4 +46,8 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8010/eureka
+
+token:
+  expiration_time: 3600000
+  secret: 123481203958asdfmasdfzocixubbozixusndfn399129djlkvclzvjksjajdfj
 
