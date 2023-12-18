@@ -5,14 +5,18 @@ spring:
   cloud:
     bus:
       enabled: true
+      id: ${spring.application.name}:${random.uuid}
+      refresh:
+        enabled: true
     config:
       name: ConfigServer
   config:
     import: configserver:http://localhost:8012
+    name: USERS-WS
   application:
     name: USERS-WS
   datasource:
-    url: jdbc:mysql://localhost:3306/e-commerce
+    url: jdbc:mysql://localhost:3306/e-commercy
     username: root
     password:
     driver-class-name: com.mysql.cj.jdbc.Driver

@@ -39,6 +39,18 @@ spring:
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/users-ws/(?<segment>.*), /$\{segment}
+        - id: users-ws-actuator
+          uri: lb://users-ws
+          predicates:
+            - Path=/users-ws/actuator/**
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/users-ws/(?<segment>.*), /$\{segment}
+    config:
+      name: ConfigServer
+  config:
+    import: configserver:http://localhost:8012
 
 eureka:
   instance:
@@ -46,6 +58,15 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8010/eureka
+
+management:
+  endpoint:
+    gateway:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "gateway, health, mappings, busrefresh, httpexchanges"
 
 token:
   expiration_time: 3600000

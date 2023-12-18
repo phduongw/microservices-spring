@@ -1,9 +1,12 @@
 package com.dcorp.hightech.api.gateway.apigateway.filters;
 
 import io.jsonwebtoken.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
+import org.springframework.core.Ordered;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,7 +22,8 @@ import java.util.Base64;
 import java.util.Objects;
 
 @Component
-public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<AuthorizationHeaderFilter.Config> {
+public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<AuthorizationHeaderFilter.Config> implements Ordered {
+    Logger logger = LoggerFactory.getLogger(AuthorizationHeaderFilter.class);
 
     @Autowired
     Environment environment;
@@ -33,6 +37,7 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
 
         return ((exchange, chain) -> {
             ServerHttpRequest request = exchange.getRequest();
+            logger.info("Auth jwt token");
             if (request.getHeaders().get(HttpHeaders.AUTHORIZATION) != null ) {
                 String authorizationHeader = Objects.requireNonNull(request.getHeaders().get(HttpHeaders.AUTHORIZATION)).get(0);
                 String token = authorizationHeader.replace("Bearer", "");
@@ -73,6 +78,11 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
         }
 
         return !Objects.isNull(userID) && !userID.isEmpty();
+    }
+
+    @Override
+    public int getOrder() {
+        return 0;
     }
 
     public static class Config {
