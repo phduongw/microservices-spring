@@ -51,3 +51,13 @@ gateway:
 token:
   expiration_time: 3600000
   secret: 123481203958asdfmasdfzocixubbozixusndfn399129djlkvclzvjksjajdfj
+#logging:
+#  level:
+#    com:
+#      dcorp:
+#        hightech:
+#          api:
+#            users:
+#              photoappapiusers:
+#                feign:
+#                  AlbumsServiceClient: debug

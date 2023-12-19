@@ -43,7 +43,7 @@ public class SecurityConfig {
         http
                 .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
-                        auth.requestMatchers(HttpMethod.POST, "/users").access(new WebExpressionAuthorizationManager("hasIpAddress('"+ environment.getProperty("gateway.ip") +"')"))
+                        auth.requestMatchers("/users/**").access(new WebExpressionAuthorizationManager("hasIpAddress('"+ environment.getProperty("gateway.ip") +"')"))
                                 .requestMatchers(HttpMethod.GET, "/users/status/check").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/actuator/**").access(new WebExpressionAuthorizationManager("hasIpAddress('"+ environment.getProperty("gateway.ip")+"')"))
                 ).addFilter(authenticationFilter)

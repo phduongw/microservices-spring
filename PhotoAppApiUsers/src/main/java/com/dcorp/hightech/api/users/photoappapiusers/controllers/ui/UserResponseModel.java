@@ -4,28 +4,23 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UserDTO implements Serializable {
-
+public class UserResponseModel {
+    String userId;
     String firstName;
     String lastName;
     String email;
-    String password;
-    String userId;
-    String encryptedPassword;
     List<AlbumResponseModel> albums = new ArrayList<>();
 
-    public void addAlbum(AlbumResponseModel album) {
+    public void addElement(AlbumResponseModel album) {
         this.albums.add(album);
     }
 
-    public void addAllAlbums(List<AlbumResponseModel> albums) {
+    public void addAllElement(List<AlbumResponseModel> albums) {
         this.albums.addAll(albums);
     }
-
 }

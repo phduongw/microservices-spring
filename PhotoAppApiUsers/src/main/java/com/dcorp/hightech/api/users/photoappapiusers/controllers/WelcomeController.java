@@ -3,6 +3,7 @@ package com.dcorp.hightech.api.users.photoappapiusers.controllers;
 import com.dcorp.hightech.api.users.photoappapiusers.controllers.ui.CreateUserRequest;
 import com.dcorp.hightech.api.users.photoappapiusers.controllers.ui.CreateUserResponse;
 import com.dcorp.hightech.api.users.photoappapiusers.controllers.ui.UserDTO;
+import com.dcorp.hightech.api.users.photoappapiusers.controllers.ui.UserResponseModel;
 import com.dcorp.hightech.api.users.photoappapiusers.services.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -36,6 +37,16 @@ public class WelcomeController {
         CreateUserResponse response = mapper.map(user, CreateUserResponse.class);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UserResponseModel> getUser(@PathVariable String id) {
+        UserDTO user = userService.getUserByUserID(id);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(new ModelMapper()
+                        .map(user, UserResponseModel.class)
+                );
     }
 
 }
