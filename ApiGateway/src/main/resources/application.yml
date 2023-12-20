@@ -42,7 +42,7 @@ spring:
         - id: users-ws-actuator
           uri: lb://users-ws
           predicates:
-            - Path=/users-ws/actuator/**
+            - Path=/users-ws/actuator/**f
             - Method=GET
           filters:
             - RemoveRequestHeader=Cookie

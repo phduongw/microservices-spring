@@ -9,6 +9,7 @@
         <option value="$PROJECT_DIR$/../eureka-server/pom.xml" />
         <option value="$PROJECT_DIR$/../e-commerce/e-commercy-server/pom.xml" />
         <option value="$PROJECT_DIR$/../config-server-application/pom.xml" />
+        <option value="$PROJECT_DIR$/../PhotoAppApiAlbums/pom.xml" />
       </list>
     </option>
   </component>
